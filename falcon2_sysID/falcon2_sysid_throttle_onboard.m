@@ -4,15 +4,19 @@ path(path, '../read_bags');
 path(path, '../helper_functions');
 
 % two experiments are needed to validate the identification
-bagfile_exp =  '/data/rosbag/throttle_imu/throttle_imu_sample_4Ah_01.bag';
+bagfile_exp =  '/data/rosbag/throttle_imu/throttle_imu_sample_8Ah.bag';
+
+%% Select data in flight - remove stationary 
+selection_start_time = 18;
+selection_end_time = 119;
 
 topic_imu = '/dji_sdk/imu';
 topic_roll_pitch_yawrate_thrust = '/gc/roll_pitch_yawrate_thrust';
 
 %mas of uav with 4Ah battery
-uav_mass = 2.096;
+%uav_mass = 2.096;
 %mas of uav with 8Ah battery
-%uav_mass = 2.311;
+uav_mass = 2.311;
 
 
 bag = ros.Bag(bagfile_exp);
@@ -46,9 +50,7 @@ xlabel('time');
 legend('Force_Z','thrust');
 grid on;
 
-%% Select data in flight - remove stationary 
-selection_start_time = 18;
-selection_end_time = 107;
+
 
 
 %% Interpolation of throttle data to match imu sampling points
